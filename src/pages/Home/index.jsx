@@ -27,33 +27,41 @@ export default function Home(props) {
     }
   }
   return (
-    <div>
-      <Container className="my-5">
-        <Col className="d-flex justify-content-center align-items-center">
-          <Form className="mx-2">
-            <Form.Group controlId="candidateName">
-              <Form.Label>Full Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter your name here"
-                onKeyDown={(e) => setName(e.currentTarget.value)}
-              ></Form.Control>
-              <Form.Text className="text-muted">
-                Please use your real name
-              </Form.Text>
-            </Form.Group>
-          </Form>
-        </Col>
-        <Row className="align-middle">
+    <Row
+      className="d-flex justify-content-center"
+      style={{
+        height: "100vh",
+      }}
+    >
+      <Col
+        sm={3}
+        className="d-flex justify-content-center flex-column align-items-center"
+      >
+        <Form className="mx-2">
+          <Form.Group controlId="candidateName">
+            <Form.Label>Full Name</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter here"
+              size="lg"
+              onKeyDown={(e) => setName(e.currentTarget.value)}
+            ></Form.Control>
+            <Form.Text className="text-muted">
+              Please use your real name
+            </Form.Text>
+          </Form.Group>
+        </Form>
+        <Row>
           <Button
             onClick={() => handleStartButton()}
             size="md"
-            className="mx-auto"
+            variant="outline-primary"
+            className="d-flex align-items-center justify-content-center w-100"
           >
             Start
           </Button>
         </Row>
-      </Container>
-    </div>
+      </Col>
+    </Row>
   );
 }
