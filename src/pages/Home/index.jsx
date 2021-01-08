@@ -45,7 +45,11 @@ export default function Home(props) {
           </Form>
         </Col>
         <Row className="align-middle">
-          <Button onClick={handleStartButton} size="md" className="mx-auto">
+          <Button
+            onClick={() => handleStartButton()}
+            size="md"
+            className="mx-auto"
+          >
             Start
           </Button>
         </Row>

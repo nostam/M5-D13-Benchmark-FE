@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import React, { useState, useEffect, useRef } from "react";
+import { Container, Row, Col, Button, Badge } from "react-bootstrap";
 
 export default function Exam(props) {
   const { exam } = props.location.state;
   let [count, setCount] = useState(0);
+  const [sec, setSec] = useState(0);
+  const [timer, setTimer] = useState(0);
+  const countRef = useRef(null);
+
   const [examFinished, setExamFinished] = useState(false);
   const [selectedAns, setSelectedAns] = useState(undefined);
   const payload = { question: count, answer: selectedAns };
@@ -25,6 +29,7 @@ export default function Exam(props) {
         console.log("next question");
         setCount(++count); // count++ cause double click, lifecycle
         setSelectedAns(undefined);
+        setSec(0);
       } else {
         setExamFinished(true);
         // props.history.push("/completed", { id: exam._id });
@@ -36,11 +41,24 @@ export default function Exam(props) {
   function viewResult() {
     props.history.push(`/result/${exam._id}`);
   }
+  function countDown(duration) {
+    countRef.current = setInterval(() => {
+      setTimer((timer) => timer + 1);
+    }, 1000);
+    let remains = duration - sec;
+
+    return remains;
+  }
   function questions() {
     return (
       <>
         <Row className="my-5">
-          <h1>duration: </h1>
+          <h1>
+            Duration:
+            <Badge className="btn-info mx-2">
+              {countDown(exam.questions[count].duration)}s
+            </Badge>
+          </h1>
         </Row>
         <Row>
           <Col lg={8} md={6}>
